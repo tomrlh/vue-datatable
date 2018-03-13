@@ -3,8 +3,10 @@
 		<table class="table table-bordered table-hover-imp table-striped dataTable" :id="id">
 			<thead>
 				<tr>
-					<th v-for="c in columns">
-						{{c}}
+					<th  v-for="c in columns">
+						<span v-for="prop in c">
+							{{prop}}
+						</span> 
 					</th>
 				</tr>
 			</thead>
@@ -21,7 +23,7 @@
 			<br>
 			{{columns}}
 			<br>
-			{{data}}
+			{{initDataTable().data()[0]}}
 		</div>
 	</div>
 </template>
@@ -36,58 +38,35 @@ export default {
 	},
 	watch: {
 		data: function(newValue) {
-			if($.fn.dataTable.isDataTable('#' + this.id)) {
-				console.log('foi iniciada')
-				let datatable = this.initDataTable()
-				console.log('antes limpar')
-				datatable.clear()
-				datatable.draw()
-
-				datatable.rows.add(newValue).draw()
-				console.log(datatable.data)
-			}
-			else {
-				console.log('false')
-			}
+			let datatable = this.initDataTable()
+			datatable.clear()
+			datatable.rows.add(newValue).draw()
+			console.log(datatable.data)
 		}
 	},
 	methods: {
-		clear() {
-			console.log('clear method')
+		addRow(newRow) {
 			let datatable = this.initDataTable()
-			console.log('antes')
-			console.log('columns', datatable.columns())
-			console.log('columns', datatable.columns().indexes())
-			console.log('rows', datatable.rows().data())
-			// datatable.clear()
-			// datatable.draw()
-			console.log('depois')
-			datatable.rows.add([{
-				'col1': 'ADICIONADO1',
-				'col2': 'ADICIONADO2'
-			}]).draw()
-			// console.log('columns', datatable.columns())
-			// datatable.rows().invalidate().draw()
-				// datatable.rows.add([
-				// 	{
-				// 		'col1': 'NOVO2',
-				// 		'col2': 'NOVO2'
-				// 	},
-				// 	{
-				// 		'col1': 'NOVO3',
-				// 		'col2': 'NOVO4'
-				// 	},
-				// 	{
-				// 		'col1': 'NOVO3',
-				// 		'col2': 'NOVO4'
-				// 	},
-				// ]).draw()
-			// console.log('depois', datatable.rows().data())
+			datatable.rows.add([newRow]).draw()
+		},
+		clear() {
+			let datatable = this.initDataTable()
+			datatable.clear().draw()
 		},
 		initDataTable() {
-			return $('#' + this.id).DataTable({
-				'retrieve': true
-			})
+			if(!$.fn.dataTable.isDataTable('#' + this.id)) {
+				return $('#' + this.id).DataTable({
+					retrieve: true,
+					columns: this.columns,
+					language: {
+						url: '//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
+					},
+					autoWidth: true
+				})
+			}
+			else {
+				return $('#' + this.id).DataTable()
+			}
 		}
 	},
 	mounted() {

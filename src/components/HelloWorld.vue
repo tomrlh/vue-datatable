@@ -1,88 +1,10 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
     <data-table :id="ide":columns="cols" :data="data" ref="filho"></data-table>
     <button @click="limparTabela()">Limpar tabela</button>
-    <button @click="gerarDados()">Novas linhas</button>
+    <button @click="gerarDados()">Novos dados</button>
+    <button @click="novaLinha()">Adicionar linha</button>
   </div>
 </template>
 
@@ -96,77 +18,80 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: 'DataTables as Component (Implementing)',
       ide: 'id_tabela',
       cols: [
-        { 'name': 'col1' },
-        { 'name': 'col2' },
+        { data: 'col1' },
+        { data: 'col2' },
       ],
       data: [
         {
-          'col1': 'NOVO2',
-          'col2': 'NOVO2'
+          'col1': 'prop1',
+          'col2': 'prop1'
         },
         {
-          'col1': 'NOVO3',
-          'col2': 'NOVO4'
+          'col1': 'prop2',
+          'col2': 'prop2'
         },
         {
-          'col1': 'NOVO2',
-          'col2': 'NOVO2'
+          'col1': 'prop3',
+          'col2': 'prop3'
         },
         {
-          'col1': 'NOVO3',
-          'col2': 'NOVO4'
+          'col1': 'prop4',
+          'col2': 'prop4'
         },
         {
-          'col1': 'NOVO2',
-          'col2': 'NOVO2'
+          'col1': 'prop5',
+          'col2': 'prop5'
         },
         {
-          'col1': 'NOVO3',
-          'col2': 'NOVO4'
+          'col1': 'prop6',
+          'col2': 'prop6'
         },
         {
-          'col1': 'NOVO2',
-          'col2': 'NOVO2'
+          'col1': 'prop7',
+          'col2': 'prop7'
         },
         {
-          'col1': 'NOVO3',
-          'col2': 'NOVO4'
+          'col1': 'prop8',
+          'col2': 'prop8'
         },
         {
-          'col1': 'NOVO2',
-          'col2': 'NOVO2'
+          'col1': 'prop9',
+          'col2': 'prop9'
         },
         {
-          'col1': 'NOVO3',
-          'col2': 'NOVO4'
+          'col1': 'prop10',
+          'col2': 'prop10'
         },
         {
-          'col1': 'NOVO2',
-          'col2': 'NOVO2'
+          'col1': 'prop11',
+          'col2': 'prop11'
         },
         {
-          'col1': 'NOVO3',
-          'col2': 'NOVO4'
+          'col1': 'prop12',
+          'col2': 'prop12'
         },
       ],
     }
   },
   methods: {
+    novaLinha() {
+      this.$refs.filho.addRow({'col1': 'novaLinha1', 'col2': 'novaLinha2'})
+    },
     limparTabela() {
       this.$refs.filho.clear()
     },
     gerarDados() {
       this.data = [
         {
-          'col1': 'NOVO2',
-          'col2': 'NOVO2'
+          'col1': 'NOVO1',
+          'col2': 'NOVO1'
         },
         {
-          'col1': 'NOVO3',
-          'col2': 'NOVO4'
+          'col1': 'NOVO2',
+          'col2': 'NOVO2'
         },
       ]
     },
