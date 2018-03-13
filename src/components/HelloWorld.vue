@@ -98,10 +98,59 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       ide: 'id_tabela',
-      cols: ['col1', 'col2'],
+      cols: [
+        { 'name': 'col1' },
+        { 'name': 'col2' },
+      ],
       data: [
-        'valor1',
-        'valor2'
+        {
+          'col1': 'NOVO2',
+          'col2': 'NOVO2'
+        },
+        {
+          'col1': 'NOVO3',
+          'col2': 'NOVO4'
+        },
+        {
+          'col1': 'NOVO2',
+          'col2': 'NOVO2'
+        },
+        {
+          'col1': 'NOVO3',
+          'col2': 'NOVO4'
+        },
+        {
+          'col1': 'NOVO2',
+          'col2': 'NOVO2'
+        },
+        {
+          'col1': 'NOVO3',
+          'col2': 'NOVO4'
+        },
+        {
+          'col1': 'NOVO2',
+          'col2': 'NOVO2'
+        },
+        {
+          'col1': 'NOVO3',
+          'col2': 'NOVO4'
+        },
+        {
+          'col1': 'NOVO2',
+          'col2': 'NOVO2'
+        },
+        {
+          'col1': 'NOVO3',
+          'col2': 'NOVO4'
+        },
+        {
+          'col1': 'NOVO2',
+          'col2': 'NOVO2'
+        },
+        {
+          'col1': 'NOVO3',
+          'col2': 'NOVO4'
+        },
       ],
     }
   },
@@ -111,8 +160,14 @@ export default {
     },
     gerarDados() {
       this.data = [
-        'novo1',
-        'novo2'
+        {
+          'col1': 'NOVO2',
+          'col2': 'NOVO2'
+        },
+        {
+          'col1': 'NOVO3',
+          'col2': 'NOVO4'
+        },
       ]
     },
   }

@@ -3,15 +3,15 @@
 		<table class="table table-bordered table-hover-imp table-striped dataTable" :id="id">
 			<thead>
 				<tr>
-					<th v-for="col in columns">
-						{{col}}
+					<th v-for="c in columns">
+						{{c}}
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td v-for="d in data">
-						{{d}}
+				<tr v-for="d in data">
+					<td v-for="c in d">
+						{{c}}
 					</td>
 				</tr>
 			</tbody>
@@ -37,23 +37,52 @@ export default {
 	watch: {
 		data: function(newValue) {
 			if($.fn.dataTable.isDataTable('#' + this.id)) {
-				console.log('true')
+				console.log('foi iniciada')
 				let datatable = this.initDataTable()
-				console.log(datatable)
+				console.log('antes limpar')
 				datatable.clear()
 				datatable.draw()
+
+				datatable.rows.add(newValue).draw()
+				console.log(datatable.data)
 			}
 			else {
-
 				console.log('false')
 			}
 		}
 	},
 	methods: {
 		clear() {
+			console.log('clear method')
 			let datatable = this.initDataTable()
-			datatable.clear()
-			datatable.draw()
+			console.log('antes')
+			console.log('columns', datatable.columns())
+			console.log('columns', datatable.columns().indexes())
+			console.log('rows', datatable.rows().data())
+			// datatable.clear()
+			// datatable.draw()
+			console.log('depois')
+			datatable.rows.add([{
+				'col1': 'ADICIONADO1',
+				'col2': 'ADICIONADO2'
+			}]).draw()
+			// console.log('columns', datatable.columns())
+			// datatable.rows().invalidate().draw()
+				// datatable.rows.add([
+				// 	{
+				// 		'col1': 'NOVO2',
+				// 		'col2': 'NOVO2'
+				// 	},
+				// 	{
+				// 		'col1': 'NOVO3',
+				// 		'col2': 'NOVO4'
+				// 	},
+				// 	{
+				// 		'col1': 'NOVO3',
+				// 		'col2': 'NOVO4'
+				// 	},
+				// ]).draw()
+			// console.log('depois', datatable.rows().data())
 		},
 		initDataTable() {
 			return $('#' + this.id).DataTable({
