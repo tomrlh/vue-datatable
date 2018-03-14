@@ -1,10 +1,11 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <data-table :id="ide":columns="cols" :data="data" ref="filho"></data-table>
+    <data-table :id="ide" :columns="cols" :ajax="ajaxUrl" ajaxDS="ajaxDS" ref="filho"></data-table>
     <button @click="limparTabela()">Limpar tabela</button>
     <button @click="gerarDados()">Novos dados</button>
     <button @click="novaLinha()">Adicionar linha</button>
+    <button @click="ajaxReload()">Ajax Reload</button>
   </div>
 </template>
 
@@ -21,10 +22,13 @@ export default {
       msg: 'DataTables as Component (Implementing)',
       ide: 'id_tabela',
       cols: [
-        { data: 'col1' },
-        { data: 'col2' },
+        { data: 'id', label: 'ID' },
+        { data: 'attributes.ano', label: 'Ano' },
+        { data: 'attributes.valor', label: 'Valor' },
       ],
-      data: [
+      ajaxUrl: 'http://localhost:8000/api/v1/pessoas/2/consignacoes',
+      ajaxDS: 'data',
+      dados: [
         {
           'col1': 'prop1',
           'col2': 'prop1'
@@ -84,7 +88,7 @@ export default {
       this.$refs.filho.clear()
     },
     gerarDados() {
-      this.data = [
+      this.dados = [
         {
           'col1': 'NOVO1',
           'col2': 'NOVO1'
@@ -95,6 +99,9 @@ export default {
         },
       ]
     },
+    ajaxReload() {
+      this.$refs.filho.ajaxReload()
+    }
   }
 }
 </script>

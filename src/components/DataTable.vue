@@ -4,9 +4,7 @@
 			<thead>
 				<tr>
 					<th  v-for="c in columns">
-						<span v-for="prop in c">
-							{{prop}}
-						</span> 
+						{{c.label}}
 					</th>
 				</tr>
 			</thead>
@@ -18,30 +16,21 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="row">
-			{{id}}
-			<br>
-			{{columns}}
-			<br>
-			{{initDataTable().data()[0]}}
-		</div>
 	</div>
 </template>
 
 <script>
 export default {
-	props: ['id', 'columns', 'data'],
+	props: ['id', 'columns', 'data', 'ajax', 'ajaxDS'],
 	data () {
 		return {
-
 		}
 	},
 	watch: {
 		data: function(newValue) {
 			let datatable = this.initDataTable()
-			datatable.clear()
+			datatable.rows().remove().draw()
 			datatable.rows.add(newValue).draw()
-			console.log(datatable.data)
 		}
 	},
 	methods: {
@@ -49,28 +38,39 @@ export default {
 			let datatable = this.initDataTable()
 			datatable.rows.add([newRow]).draw()
 		},
+		
+
+
 		clear() {
 			let datatable = this.initDataTable()
-			datatable.clear().draw()
+			datatable.rows().remove().draw()
 		},
+
+
+
+		ajaxReload() {
+			let datatable = this.initDataTable()
+			datatable.ajax.reload()
+		},
+
+
+
 		initDataTable() {
-			if(!$.fn.dataTable.isDataTable('#' + this.id)) {
-				return $('#' + this.id).DataTable({
-					retrieve: true,
-					columns: this.columns,
-					language: {
-						url: '//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
-					},
-					autoWidth: true
-				})
-			}
-			else {
-				return $('#' + this.id).DataTable()
-			}
+			return $('#' + this.id).DataTable({
+				retrieve: true,
+				autoWidth: true,
+				ordering: true,
+				language: {
+					url: '//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
+				},
+				columns: this.columns,
+				ajax: this.ajax
+			})
 		}
 	},
 	mounted() {
-		console.log(this.initDataTable())
+		this.initDataTable()
+		this.initDataTable().order([1, 'asc']).draw()
 	}
 }
 </script>
