@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import ExampleOfUse from '@/components/ExampleOfUse'
 import DataTable from '@/components/DataTable'
 
 Vue.use(Router)
@@ -9,13 +9,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'ExampleOfUse',
+      component: ExampleOfUse
     },
-	{
-      path: '/datatable',
-      name: 'DataTable',
-      component: HelloWorld
-    }
   ]
 })

@@ -1,6 +1,10 @@
 <template>
   <div>
     <h1>{{ msg }}</h1>
+    <br>
+    GitHub User to search: <input type="text" v-model="userName">
+    <button @click="loadData()">Load Data</button>
+    <br>
     <h3>Repositories of: {{userName}} <img :src="rows[0].owner.avatar_url" alt="" v-if="rows[0]" width="5%" style="border-radius: 50px"></h3>
 
     <br>
@@ -10,8 +14,7 @@
       </div>
     </div>
     <br>
-    GitHub User to search: <input type="text" v-model="userName">
-    <button @click="loadData()">Load Data</button>
+
   </div>
 </template>
 
