@@ -1,21 +1,42 @@
-# vue-datatable
+# DataTable Vue component
 
-> A Vue.js project
+> Component that abstracts the [jQuery DataTables](https://datatables.net) to Vue components
 
-## Build Setup
+## About
+
+There are a lot of projects that make the same thing, but this one looks to do as simple as possible, avoiding datatables configuration and table html structure code inside vue components, separating the table responsabilities.
+
+## Requirements
 
 ``` bash
 # install dependencies
-npm install
+npm install datatables.net
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
+// in App.vue
+import 'datatables.net'
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### or
+build your own datatable.js and datatable.css [here](https://datatables.net/download/index) and add to your project.
+
+
+## Usage
+
+- import the datatable component and pass the required parameters (rows and columns) that must be arrays:
+
+```html
+<data-table :id="id" :columns="cols" :rows="rows" :cols="cols"></data-table>
+```
+
+- colums must have ```data``` and ```label``` properties (data corresponds to row object/array property);
+
+- to apply vue filters, pass it name as a property to desired column:
+
+```js
+cols: [{data: 'price', label: 'Price', filter: 'currency'}]
+```
+
+## About
+
+- full support to ajax requests not implemented yet;
+- this component is in development;

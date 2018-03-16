@@ -1,17 +1,17 @@
 <template>
-	<div>
-		<table class="table table-bordered table-hover-imp table-striped dataTable" :id="id">
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover-imp table-striped dataTable text-center" :id="id" style="width: 100%">
 			<thead>
 				<tr>
-					<th  v-for="c in columns">
+					<th v-for="c in columns">
 						{{c.label}}
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="d in data">
-					<td v-for="c in d">
-						{{c}}
+				<tr v-for="row in rows">
+					<td v-for="prop in row">
+						{{row.prop}}
 					</td>
 				</tr>
 			</tbody>
@@ -21,16 +21,19 @@
 
 <script>
 export default {
-	props: ['id', 'columns', 'data', 'ajax', 'ajaxDS'],
+	props: ['id', 'columns', 'rows'],
 	data () {
 		return {
 		}
 	},
 	watch: {
-		data: function(newValue) {
-			let datatable = this.initDataTable()
-			datatable.rows().remove().draw()
-			datatable.rows.add(newValue).draw()
+		rows: function(newValue) {
+			if(newValue instanceof Array) {
+				let datatable = this.initDataTable()
+				datatable.destroy()
+				this.initDataTable(newValue)
+			}
+			else console.log('data is not an array')
 		}
 	},
 	methods: {
@@ -55,22 +58,70 @@ export default {
 
 
 
-		initDataTable() {
+		formatData(rows, columns) {
+			if(rows instanceof Array && columns instanceof Array) {
+				rows.forEach((row) => {
+					var formattedItem = {}
+					columns.forEach((col) => {
+						if(row[col.data]) { // se a coluna informada existir
+						formattedItem[col.data] = row[col.data]
+						}
+						else row[col.data] = ''
+					})
+				})
+			}
+		},
+
+
+
+		applyFilters() {
+			if(this.rows instanceof Array && this.columns instanceof Array) {
+				this.columns.forEach(function(col) {
+					if(col.filter) {
+						this.rows.forEach(function(row) {
+							let filteredValue = this.$options.filters[col.filter](row[col.data])
+							row[col.data] = filteredValue
+						}, this)
+					}
+				}, this)
+			}
+		},
+
+
+
+		initDataTable(data = null) {
+			if($.fn.DataTable.isDataTable(this.id))
+				return $('#' + this.id).DataTable()
+
+			if(!this.columns) {
+				console.log('columns not passed')
+				return
+			}
+			if(!this.rows && data) {
+				console.log('data not passed')
+				return
+			}
+
+			if(data) this.rows = data
+
+			this.applyFilters()
+			this.formatData(this.rows, this.columns)
+
 			return $('#' + this.id).DataTable({
 				retrieve: true,
 				autoWidth: true,
 				ordering: true,
+				order: [[1, 'desc']],
 				language: {
-					url: '//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
+					url: '//cdn.datatables.net/plug-ins/1.10.13/i18n/English.json'
 				},
 				columns: this.columns,
-				ajax: this.ajax
+				data: this.rows,
 			})
 		}
 	},
 	mounted() {
 		this.initDataTable()
-		this.initDataTable().order([1, 'asc']).draw()
 	}
 }
 </script>
