@@ -16,12 +16,27 @@
 				</tr>
 			</tbody>
 		</table>
+		<button
+			:style="enableExportCsv ? '' : 'display: none;'"
+			:disabled="!this.rows.length > 0"
+			class="btn btn-xs btn-success pull-right"
+			type="button"
+			@click="exportCsv()">
+			<i class="fa fa-file-excel-o"></i>
+			Exportar para CSV
+		</button>
 	</div>
 </template>
 
 <script>
 export default {
-	props: ['id', 'columns', 'rows'],
+	// props: ['id', 'columns', 'rows', 'enableExportCsv'],
+	props: {
+		id: {default: 'table'},
+		columns: {default: []},
+		rows: {default: []},
+		enableExportCsv: {default: true},
+	},
 	data () {
 		return {
 		}
@@ -33,7 +48,6 @@ export default {
 				datatable.destroy()
 				this.initDataTable(newValue)
 			}
-			else console.log('data is not an array')
 		}
 	},
 	methods: {
@@ -54,6 +68,22 @@ export default {
 		ajaxReload() {
 			let datatable = this.initDataTable()
 			datatable.ajax.reload()
+		},
+
+
+
+		exportCsv() {
+			var csv = this.$papa.unparse(this.rows)
+			// console.log(location)
+			// location.href = 
+
+			var link = document.createElement('a')
+			link.href = 'data:application/download,' + encodeURIComponent(csv)
+			link.download = 'lista.csv'
+
+			document.body.appendChild(link)
+			link.click()
+			document.body.removeChild(link)
 		},
 
 
@@ -113,7 +143,7 @@ export default {
 				ordering: true,
 				order: [[1, 'desc']],
 				language: {
-					url: '//cdn.datatables.net/plug-ins/1.10.13/i18n/English.json'
+					url: '//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
 				},
 				columns: this.columns,
 				data: this.rows,

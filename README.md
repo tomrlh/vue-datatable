@@ -40,3 +40,4 @@ cols: [{data: 'price', label: 'Price', filter: 'currency'}]
 
 - full support to ajax requests not implemented yet;
 - this component is in development;
+- any sugestions will be helpful;
