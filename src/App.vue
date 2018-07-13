@@ -7,6 +7,7 @@
 
 <script>
 import './assets/css/bootstrap.css'
+import './assets/js/jquery.min'
 import './assets/js/bootstrap'
 import './assets/js/datatables'
 
