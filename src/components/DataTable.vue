@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import Papa from 'papaparse'
+
 export default {
 	// props: ['id', 'columns', 'rows', 'enableExportCsv'],
 	props: {
@@ -73,7 +75,7 @@ export default {
 
 
 		exportCsv() {
-			var csv = this.$papa.unparse(this.rows)
+			var csv = Papa.unparse(this.rows)
 			// console.log(location)
 			// location.href = 
 
