@@ -1,6 +1,7 @@
 # DataTable Vue component
 
-> Component that abstracts the [jQuery DataTables](https://datatables.net) to Vue components
+> Component that abstracts the [jQuery DataTables](https://datatables.net) to Vue components.
+> Online demo [here](https://tomurlh.github.io/vue-datatable/).
 
 ## About
 
