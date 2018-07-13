@@ -27,7 +27,7 @@ export default {
   },
   data () {
     return {
-      msg: 'Example of use of Vue DataTables component',
+      msg: 'Vue DataTables component - Example of use',
       userName: '',
       id: 'id',
       rows: [],
