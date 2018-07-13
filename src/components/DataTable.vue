@@ -23,7 +23,7 @@
 			type="button"
 			@click="exportCsv()">
 			<i class="fa fa-file-excel-o"></i>
-			Exportar para CSV
+			Export to CSV
 		</button>
 	</div>
 </template>
@@ -143,7 +143,8 @@ export default {
 				ordering: true,
 				order: [[1, 'desc']],
 				language: {
-					url: '//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
+					url: '//cdn.datatables.net/plug-ins/1.10.19/i18n/English.json'
+					// url: '//cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
 				},
 				columns: this.columns,
 				data: this.rows,
